@@ -11,7 +11,13 @@
                     .box_cell__box_section--minmax  600
                     .box_cell__box_section--minmax  3000
                 .box_cell__box_slider
-                        
+                    VueSlideBar(
+                          v-model="slider.value"
+                          :data="slider.data"
+                          :range="slider.range"
+                          :processStyle="{ backgroundColor: '#ffffff6e' }"
+                          :lineHeight="slider.lineHeight"
+                          class="demo-demo" id="slider-1")
                 .box_cell__box_title 
                     .parameters 
                         span#installment
@@ -29,12 +35,21 @@
     
 </template>
 <script>
-import loan from "@/assets/json/loan.json"
+import loan from "@/assets/json/loan.json";
+import VueSlideBar from "vue-slide-bar";
 
 export default {
+    name: "Slider",
+    components: {
+        VueSlideBar
+    },
     data() {
         return {
-
+        slider: {
+            lineHeight: 8,
+            value: 2000,
+            data: [100, 200, 300, 400, 500]
+            },
         }
     },
     methods: {

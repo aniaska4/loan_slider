@@ -27,7 +27,7 @@
                     .box_cell__box_parcels--days
                         
                 .box_cell__title_parcela
-                    #installment Valor de parcela: 
+                    #installment Wartość raty: 
                         span.valor#rata 
                 .box_cell__button
                     button weź pożyczkę
@@ -148,6 +148,7 @@ export default {
 }
 .box_cell__box_valor{
     text-align: start;
+    margin-bottom: 30px;
 }
 .box_cell__box_section {
   display: flex;
@@ -165,7 +166,8 @@ export default {
 } */
 .box_cell__title_parcela {
   width: 50%;
-  margin-top: 30px;
+  margin: 30px 0 30px 0;
+  text-align: start;
 }
 .box_cell__button button{
 	box-shadow: 0px 0px 0px 2px #9fb4f2;

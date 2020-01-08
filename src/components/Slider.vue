@@ -8,8 +8,8 @@
                     .box_cell__box_valor--text Twoja kwota pożyczki:
                         span.valor#amount  {{slider.value}} zł
                 .box_cell__box_section
-                    .box_cell__box_section--minmax  400
-                    .box_cell__box_section--minmax  2000
+                    .box_cell__box_section--minmax  min: 400
+                    .box_cell__box_section--minmax  max: 2000
                 .box_cell__box_slider
                     VueSlideBar(
                           v-model="slider.value"
@@ -20,9 +20,7 @@
                           class="demo-demo" id="slider-1")
                           template(slot="tooltip" style="background-color: #031d4c; border: black;" slot-scope="tooltip")
                             img(src="/image/handle.png" style="background-color: white; margin-top: 10px; border-radius: 7px;")
-                .box_cell__box_title 
-                    .parameters 
-                        span#installment
+                .box_cell__box_title Ilość rat w miesiącach:
                 .box_cell__box_parcels
                     .box_cell__box_parcels--days(
                           v-for="count in monthCounts"
@@ -44,9 +42,11 @@ import VueSlideBar from "vue-slide-bar";
 
 export default {
     name: "Slider",
+
     components: {
         VueSlideBar
     },
+
     data() {
         return {
             loan: {},
@@ -60,12 +60,7 @@ export default {
             currentMonthCount: 2,
         }
     },
-    created(){
-        this.loan = loan.data
-        this.slider.data = this.loan.amounts
-        console.log(this.loan)
 
-    },
     computed: {
         finalInstallment(){
             if (!this.loan.prices || this.monthCounts === []) {
@@ -75,48 +70,36 @@ export default {
         }
          
     },
+
+    created(){
+        this.loan = loan.data
+        this.slider.data = this.loan.amounts
+        console.log(this.loan)
+
+    },
+
     methods: {
         showPeriod() {
         const index = this.monthCounts.indexOf(this.currentMonthCount); //index klikanego miesiąca
         this.days = Object.keys(this.loan.prices)[index];
         const payment = this.loan.prices[this.days][this.slider.value].schedule[0].amount;
-        return payment;
-    },
+        return payment + "  zł";
+        },
         currentMounths(){
              this.currentMounth = this.loan.periods.map(month => month / 30)
              return this.currentMounth
-         }
-        
-        
+        }
     }
     
 }
 </script>
 
 <style scoped>
-.available {
-  width: 100%;
-  border: solid 1px #fff;
-  border-radius: 5px;
-  padding: 5px 0;
-  color: #fff;
-  text-align: center;
-  margin: 2px;
-}
-.active {
-  width: 100%;
-  background-color: #fff;
-  border: solid 1px #fff;
-  border-radius: 5px;
-  padding: 5px 0;
-  margin: 2px;
-  color: #000;
-  text-align: center;
-}
 .slider {
   display: flex;
   justify-content: center;
-  height: 450px;
+  height: 500px;
+  color: #d7d8da;
 }
 .main_box {
   display: flex;
@@ -128,7 +111,6 @@ export default {
   height: 100%;
   background-color: #5e5e5f;
   border: 2px solid rgb(0, 0, 27);
-  color: white;
   border-radius: 10px;
   font-family: "Oswald", sans-serif;
   font-weight: 200;
@@ -173,6 +155,7 @@ export default {
 }
 
 .box_cell__box_title_main,
+.box_cell__box_title,
 .box_cell__box_valor {
   display: flex;
   display: -webkit-box;
@@ -193,6 +176,9 @@ export default {
   justify-content: center;
   margin-bottom: 40px;
 }
+.box_cell__box_title{
+    margin-top: 25px;
+}
 .box_cell__box_valor{
     text-align: start;
     margin-bottom: 30px;
@@ -212,7 +198,6 @@ export default {
   padding: 30px 0 30px 0;
 } */
 .box_cell__title_parcela {
-  width: 50%;
   margin: 30px 0 30px 0;
   text-align: start;
 }
@@ -243,8 +228,7 @@ export default {
 };
 .valor {
   border-bottom: solid 1px white;
-  font-weight: 500;
-  
+  font-weight: 500;  
 }
 .textInfo {
   width: 45%;
@@ -256,8 +240,24 @@ export default {
 .clear {
   height: 50px;
 }
-.vue-slide-bar-tooltip{
-
+.available {
+  width: 100%;
+  border: solid 1px #fff;
+  border-radius: 5px;
+  padding: 5px 0;
+  color: #fff;
+  text-align: center;
+  margin: 2px;
+}
+.active {
+  width: 100%;
+  background-color: #fff;
+  border: solid 1px #fff;
+  border-radius: 5px;
+  padding: 5px 0;
+  margin: 2px;
+  color: #000;
+  text-align: center;
 }
 
 </style>

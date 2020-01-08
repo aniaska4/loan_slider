@@ -19,7 +19,7 @@
                           :lineHeight="slider.lineHeight"
                           class="demo-demo" id="slider-1")
                           template(slot="tooltip" style="background-color: #031d4c; border: black;" slot-scope="tooltip")
-                            img(src="/image/handle.png" style="background-color: white; margin-top: 10px; border-radius: 7px;")
+                            img(src="/loan_slider/image/handle.png" style="background-color: white; margin-top: 10px; border-radius: 7px;")
                 .box_cell__box_title Ilość rat w miesiącach:
                 .box_cell__box_parcels
                     .box_cell__box_parcels--days(

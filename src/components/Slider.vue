@@ -8,8 +8,8 @@
                     .box_cell__box_valor--text Twoja kwota pożyczki:
                         span.valor#amount  {{slider.value}} zł
                 .box_cell__box_section
-                    .box_cell__box_section--minmax  600
-                    .box_cell__box_section--minmax  3000
+                    .box_cell__box_section--minmax  400
+                    .box_cell__box_section--minmax  2000
                 .box_cell__box_slider
                     VueSlideBar(
                           v-model="slider.value"
@@ -24,17 +24,22 @@
                     .parameters 
                         span#installment
                 .box_cell__box_parcels
-                    .box_cell__box_parcels--days
-                        
+                    .box_cell__box_parcels--days(
+                          v-for="count in monthCounts"
+                          :key="count"
+                          @click="currentMonthCount = count"
+                          :class="currentMonthCount === count ? 'active' : 'available'"
+                        ) {{ count }}
                 .box_cell__title_parcela
                     #installment Wartość raty: 
-                        span.valor#rata 
+                        span.valor#rata {{finalInstallment}}
                 .box_cell__button
                     button weź pożyczkę
         .main
             .title
                 | Hello Ania
             button(@click="click")
+            button(@click="showPeriod")
 
     
 </template>
@@ -49,23 +54,74 @@ export default {
     },
     data() {
         return {
-        slider: {
-            lineHeight: 8,
-            value: 300,
-            data: [100, 200, 300, 400, 500]
-            },
+            loan: {},
+            slider: {
+                lineHeight: 8,
+                value: 600,
+                data: [],
+                },
+            days: 150,
+            monthCounts: [5],
+            currentMonthCount: 5,
         }
+    },
+    created(){
+        this.loan = loan.data
+        this.slider.data = this.loan.amounts
+
+        console.log(this.loan)
+
+    },
+    computed: {
+        finalInstallment(){
+            return this.showPeriod();
+        }
+         
     },
     methods: {
         click() {
             console.log(loan.data)
-        }
+            console.log(this.monthCounts)
+            // console.log(count)
+        },
+        showPeriod() {
+        const index = this.monthCounts.indexOf(this.currentMonthCount); //index klikanego miesiąca
+        this.days = Object.keys(this.loan.prices)[index];
+        const payment = this.loan.prices[this.days][this.slider.value].schedule[0].amount;
+        //    console.log(payment) 
+        return payment;
+    },
+        currentMounths(){
+             this.currentMounth = this.loan.periods.map(month => month / 30)
+             return this.currentMounth
+         }
+        
+        
     }
     
 }
 </script>
 
 <style scoped>
+.available {
+  width: 100%;
+  border: solid 1px #fff;
+  border-radius: 5px;
+  padding: 5px 0;
+  color: #fff;
+  text-align: center;
+  margin: 2px;
+}
+.active {
+  width: 100%;
+  background-color: #fff;
+  border: solid 1px #fff;
+  border-radius: 5px;
+  padding: 5px 0;
+  margin: 2px;
+  color: #000;
+  text-align: center;
+}
 .slider {
   display: flex;
   justify-content: center;

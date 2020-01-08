@@ -35,11 +35,6 @@
                         span.valor#rata {{finalInstallment}}
                 .box_cell__button
                     button weź pożyczkę
-        .main
-            .title
-                | Hello Ania
-            button(@click="click")
-            button(@click="showPeriod")
 
     
 </template>
@@ -61,34 +56,30 @@ export default {
                 data: [],
                 },
             days: 150,
-            monthCounts: [5],
-            currentMonthCount: 5,
+            monthCounts: [1,2,3,4,5],
+            currentMonthCount: 2,
         }
     },
     created(){
         this.loan = loan.data
         this.slider.data = this.loan.amounts
-
         console.log(this.loan)
 
     },
     computed: {
         finalInstallment(){
+            if (!this.loan.prices || this.monthCounts === []) {
+            return "";
+      }
             return this.showPeriod();
         }
          
     },
     methods: {
-        click() {
-            console.log(loan.data)
-            console.log(this.monthCounts)
-            // console.log(count)
-        },
         showPeriod() {
         const index = this.monthCounts.indexOf(this.currentMonthCount); //index klikanego miesiąca
         this.days = Object.keys(this.loan.prices)[index];
         const payment = this.loan.prices[this.days][this.slider.value].schedule[0].amount;
-        //    console.log(payment) 
         return payment;
     },
         currentMounths(){

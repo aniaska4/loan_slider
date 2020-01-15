@@ -99,7 +99,7 @@ export default {
   display: flex;
   justify-content: center;
   height: 500px;
-  color: #d7d8da;
+  color: rgb(35, 36, 37);
 }
 .main_box {
   display: flex;
@@ -109,7 +109,7 @@ export default {
   display: -webkit-flex;
   width: 40%;
   height: 100%;
-  background-color: #5e5e5f;
+  background-color: #0db7af;
   border: 2px solid rgb(0, 0, 27);
   border-radius: 10px;
   font-family: "Oswald", sans-serif;
@@ -258,6 +258,25 @@ export default {
   margin: 2px;
   color: #000;
   text-align: center;
+}
+
+@media screen and (max-width: 1024px){
+    .main_box{
+        width: 50%;
+    }
+}
+@media screen and (max-width: 769px){
+    .main_box{
+        width: 70%;
+    }
+}
+@media screen and (max-width: 668px){
+    .main_box{
+        width: 90%;
+    }
+    .slider{
+        height: 600px;
+    }
 }
 
 </style>
